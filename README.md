@@ -112,15 +112,18 @@ Resposta:
 
 Resposta:
 
+
 ```bash
 {
     msg: "Success"
 }
-    ```
+```
 ```bash
-    DELETE - /people/remove/:people_id
-    ```
-    Resposta:
+DELETE - /people/remove/:people_id  
+```
+
+Resposta:
+
 ```bash
 {
     msg: "Success"
