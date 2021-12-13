@@ -98,6 +98,7 @@ Resposta:
     ]
 }
 ```
+---
 
 ```bash
 POST - /people/create
@@ -119,6 +120,8 @@ Resposta:
     msg: "Success"
 }
 ```
+---
+
 ```bash
 DELETE - /people/remove/:people_id  
 ```
@@ -129,4 +132,4 @@ Resposta:
 {
     msg: "Success"
 }
-    ```
+```
