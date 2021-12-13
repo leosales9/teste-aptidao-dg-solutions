@@ -83,7 +83,7 @@ Execute, se preferir em terminais diferentes, os seguintes comandos:
 > Para esse desafio, foram definidas três rotas:
 
 ```bash
-    GET - /people/list
+GET - /people/list
 ```
 Resposta:
 
