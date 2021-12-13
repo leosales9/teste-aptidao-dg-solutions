@@ -1,0 +1,67 @@
+version: '3'
+
+services:
+  pgsql:
+    image: postgres:11
+    hostname: pgsql
+    env_file: .env
+    volumes:
+    - pgsql-data:/var/lib/postgresql/data
+    - ./backend/database/structure/tables.sql:/docker-entrypoint-initdb.d/10-init.sql
+    networks:
+    - pgsql-network
+
+  pgsql-cli:
+    image: pygmy/pgcli
+    container_name: pgsql_cli
+    command: postgresql://$POSTGRES_USER:$POSTGRES_PASSWORD@pgsql/$POSTGRES_DB
+    stdin_open: true
+    tty: true
+    links:
+    - pgsql
+    volumes:
+    - pgsqlcli-home:/root
+    networks:
+    - pgsql-network
+
+  backend:
+    container_name: people_backend
+    build:
+      context: ./docker/backend
+    working_dir: /app/backend
+    command: /app/backend/people-venv/bin/gunicorn --reload --bind $BACKEND_FLASK_HOST:$BACKEND_FLASK_PORT src.server:app
+    tty: true
+    env_file: .env
+    environment:
+    - PYTHONPATH=/app/backend/src
+    ports:
+    - $BACKEND_FLASK_PORT:$BACKEND_FLASK_PORT
+    volumes:
+    - .:/app:delegated
+    - home:/home/$LOCAL_USER_NAME
+    links:
+    - pgsql
+    networks:
+    - pgsql-network
+
+  frontend:
+    container_name: people_frontend
+    build:
+      context: ./docker/frontend
+    command: yarn serve
+    working_dir: /app/frontend
+    tty: true
+    env_file: .env
+    ports:
+    - $FRONTEND_PORT:$FRONTEND_PORT
+    volumes:
+    - .:/app:delegated
+    - home:/home/node
+
+volumes:
+  pgsql-data:
+  pgsqlcli-home:
+  home:
+
+networks:
+  pgsql-network:
