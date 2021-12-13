@@ -84,8 +84,9 @@ Execute, se preferir em terminais diferentes, os seguintes comandos:
 
 ```bash
     GET - /people/list
-    ```
-    Resposta:
+```
+Resposta:
+
 ```bash
 {
     people: [
