@@ -100,9 +100,10 @@ Resposta:
 ```
 
 ```bash
-    POST - /people/create
-    ```
-    Payload:
+POST - /people/create
+```
+
+Payload:
 ```bash
 {
     person_birthdate: Date,
@@ -129,4 +130,3 @@ Resposta:
     msg: "Success"
 }
     ```
-```
